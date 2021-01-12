@@ -1,0 +1,29 @@
+{
+  "name": "dvconnect",
+  "version": "1.0.0",
+  "description": "Social platform for developers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-dev-dave/dvconnect.git"
+  },
+  "keywords": [
+    "mern",
+    "social",
+    "media",
+    "node.js",
+    "express",
+    "react",
+    "redux",
+    "mongodb"
+  ],
+  "author": "David Steel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/web-dev-dave/dvconnect/issues"
+  },
+  "homepage": "https://github.com/web-dev-dave/dvconnect#readme"
+}
