@@ -4,10 +4,16 @@ const connectDB = require('./config/db')
 const server = express()
 
 // Declare routes
-const testRoute = require('./routes/api/users')
+const usersRoute = require('./routes/api/users')
+const profileRoute = require('./routes/api/profile')
+const postsRoute = require('./routes/api/posts')
+const authRoute = require('./routes/api/auth')
 
 // Use routes
-server.use('/api/test', testRoute)
+server.use('/api/users', usersRoute)
+server.use('/api/profile', profileRoute)
+server.use('/api/posts', postsRoute)
+server.use('/api/auth', authRoute)
 
 // Connect Database
 connectDB()
