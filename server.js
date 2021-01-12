@@ -3,6 +3,9 @@ const connectDB = require('./config/db')
 
 const server = express()
 
+// Init middleware
+server.use(express.json({ extended: false }))
+
 // Declare routes
 const usersRoute = require('./routes/api/users')
 const profileRoute = require('./routes/api/profile')
