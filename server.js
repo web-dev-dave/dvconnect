@@ -1,6 +1,10 @@
 const express = require('express')
+const connectDB = require('./config/db')
 
 const server = express()
+
+// Connect Database
+connectDB()
 
 server.get('/', (req, res) => {
   res.send('API Running')
