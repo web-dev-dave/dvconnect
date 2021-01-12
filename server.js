@@ -3,6 +3,12 @@ const connectDB = require('./config/db')
 
 const server = express()
 
+// Declare routes
+const testRoute = require('./routes/api/users')
+
+// Use routes
+server.use('/api/test', testRoute)
+
 // Connect Database
 connectDB()
 
