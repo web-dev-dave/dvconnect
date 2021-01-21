@@ -1,11 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const auth = require('../../middleware/auth')
-const Profile = require('../../models/Profile')
 const { check, validationResult } = require('express-validator')
 
-const profile = require('../../models/Profile')
-const user = require('../../models/User')
+const Profile = require('../../models/Profile')
+const User = require('../../models/User')
 
 // @route     GET api/profile/me
 // @desc      Get current users profile
@@ -69,15 +68,40 @@ async (req, res) => {
     if(status) profileFields.status = status
     if(githubusername) profileFields.githubusername = githubusername
     if(skills) {
-      console.log(123)
       profileFields.skills = skills.split(',').map(skill => skill.trim())
     }
 
-    
+    // Build social object
+    profileFields.social = {}
+    if(youtube) profileFields.social.youtube = youtube
+    if(facebook) profileFields.social.facebook = facebook
+    if(twitter) profileFields.social.twitter = twitter
+    if(instagram) profileFields.social.instagram = instagram
+    if(linkedin) profileFields.social.linkedin = linkedin
 
-    console.log(profileFields)
+    try {
+      let profile = await Profile.findOne({ user: req.user.id })
 
-    res.send('Hello')
+      if(profile) {
+        // Update
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id}, 
+          { $set: profileFields }, 
+          { new: true })
+
+          return res.json(profile)
+      }
+
+      //  Create
+      profile = new Profile(profileFields)
+
+      await profile.save()
+      res.json(profile)
+
+    } catch (error) {
+      console.log(error.message)
+      res.status(500).send('Server Error')
+    }
   }
 })
 
