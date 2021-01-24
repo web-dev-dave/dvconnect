@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
   user: {
@@ -47,14 +47,14 @@ const ProfileSchema = new mongoose.Schema({
         required: true
       },
       to: {
-        type: Date,
+        type: Date
       },
       current: {
         type: Boolean,
         default: false
       },
       description: {
-        type: String,
+        type: String
       }
     }
   ],
@@ -77,14 +77,14 @@ const ProfileSchema = new mongoose.Schema({
         required: true
       },
       to: {
-        type: Date,
+        type: Date
       },
       current: {
         type: Boolean,
         default: false
       },
       description: {
-        type: String,
+        type: String
       }
     }
   ],
@@ -105,10 +105,10 @@ const ProfileSchema = new mongoose.Schema({
       type: String
     }
   },
-  date : {
+  date: {
     type: Date,
     default: Date.now
   }
-})
+});
 
-module.exports = Profile = mongoose.model('profile', ProfileSchema)
+module.exports = Profile = mongoose.model('profile', ProfileSchema);
