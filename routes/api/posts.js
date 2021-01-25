@@ -73,4 +73,21 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+// @route     DELETE api/posts/:id
+// @desc      Delete posts by ID
+// @access    Private
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    await Post.findByIdAndRemove(req.params.id);
+
+    res.json({ msg: 'Post Deleted' });
+  } catch (error) {
+    console.log(error.message);
+    if (error.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Post not found' });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
