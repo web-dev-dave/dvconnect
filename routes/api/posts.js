@@ -61,6 +61,7 @@ router.get('/:id', auth, async (req, res) => {
   try {
     const posts = await Post.findById(req.params.id);
 
+    // Post doesnt exist
     if (!posts) return res.status(404).json({ msg: 'Post not found' });
 
     res.json(posts);
@@ -78,7 +79,17 @@ router.get('/:id', auth, async (req, res) => {
 // @access    Private
 router.delete('/:id', auth, async (req, res) => {
   try {
-    await Post.findByIdAndRemove(req.params.id);
+    const post = await Post.findById(req.params.id);
+
+    // Post doesnt exist
+    if (!posts) return res.status(404).json({ msg: 'Post not found' });
+
+    // Check user
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
+    }
+
+    await post.remove();
 
     res.json({ msg: 'Post Deleted' });
   } catch (error) {
