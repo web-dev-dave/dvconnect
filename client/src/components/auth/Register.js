@@ -13,20 +13,29 @@ const Register = () => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const onSubmit = e => {
+    e.preventDefault();
+    if (password !== password2) {
+      console.log('Password does not match');
+    } else {
+      console.log(formData);
+    }
+  };
+
   return (
     <>
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
       </p>
-      <form className='form' action='create-profile.html'>
+      <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
           <input
             type='text'
             placeholder='Name'
             name='name'
             value={name}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             required
           />
         </div>
@@ -36,7 +45,8 @@ const Register = () => {
             placeholder='Email Address'
             name='email'
             value={email}
-            onChange={e => onChange(e)}
+            onChange={onChange}
+            required
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -49,7 +59,7 @@ const Register = () => {
             placeholder='Password'
             name='password'
             value={password}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             minLength='6'
           />
         </div>
@@ -59,7 +69,7 @@ const Register = () => {
             placeholder='Confirm Password'
             name='password2'
             value={password2}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             minLength='6'
           />
         </div>
