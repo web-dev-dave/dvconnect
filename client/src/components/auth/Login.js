@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Import actions
-import { setAlert } from '../../actions/alert';
 import { login } from '../../actions/auth';
 
 const Login = ({ login, isAuthenticated }) => {
@@ -24,7 +23,6 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   // Redirect if logged in
-
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
