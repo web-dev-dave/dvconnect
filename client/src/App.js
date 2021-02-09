@@ -7,12 +7,13 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-forms/CreateProfile';
+import EditProfile from './components/profile-forms/EditProfile';
 
 // Import helpers
 import Alert from './components/layout/Alert';
 import setAuthToken from './utils/setAuthToken';
 
-// Import private toure
+// Import private route
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // Redux
@@ -45,6 +46,11 @@ const App = () => {
                 exact
                 path='/create-profile'
                 component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/edit-profile'
+                component={EditProfile}
               />
             </Switch>
           </section>
