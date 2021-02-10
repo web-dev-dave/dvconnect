@@ -97,7 +97,7 @@ const AddEducation = ({ addEducation, history }) => {
           <>
             <div className='form-group'>
               <h4>To Date</h4>
-              <input type='date' name='to' />
+              <input type='date' value={to} onChange={onChange} name='to' />
             </div>
           </>
         )}
