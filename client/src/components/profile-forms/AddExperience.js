@@ -11,9 +11,11 @@ const AddExperience = ({ addExperience, history }) => {
     location: '',
     from: '',
     to: '',
-    current: '',
+    current: false,
     description: ''
   });
+
+  const [toDateDisabled, toggleDisabled] = useState(false);
 
   const { title, company, location, from, to, current, description } = formData;
 
@@ -33,7 +35,7 @@ const AddExperience = ({ addExperience, history }) => {
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form className='form' onClick={onSubmit}>
+      <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
           <input
             type='text'
@@ -72,16 +74,26 @@ const AddExperience = ({ addExperience, history }) => {
             <input
               type='checkbox'
               value={current}
-              onChange={onChange}
+              checked={current}
+              onChange={() => {
+                setFormData({ ...formData, current: !current });
+                toggleDisabled(!toDateDisabled);
+              }}
               name='current'
             />{' '}
             Current Job
           </p>
         </div>
-        <div className='form-group'>
-          <h4>To Date</h4>
-          <input type='date' value={to} onChange={onChange} name='to' />
-        </div>
+
+        {!toDateDisabled && (
+          <>
+            <div className='form-group'>
+              <h4>To Date</h4>
+              <input type='date' value={to} onChange={onChange} name='to' />
+            </div>
+          </>
+        )}
+
         <div className='form-group'>
           <textarea
             name='description'

@@ -45,7 +45,18 @@ const EditProfile = ({
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
-  }, [loading]);
+  }, [
+    loading,
+    getCurrentProfile,
+    profile.company,
+    profile.website,
+    profile.location,
+    profile.status,
+    profile.skills,
+    profile.githubusername,
+    profile.bio,
+    profile.social
+  ]);
 
   const {
     company,
