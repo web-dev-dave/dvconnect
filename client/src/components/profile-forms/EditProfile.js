@@ -45,18 +45,7 @@ const EditProfile = ({
       youtube: loading || !profile.social ? '' : profile.social.youtube,
       instagram: loading || !profile.social ? '' : profile.social.instagram
     });
-  }, [
-    loading,
-    getCurrentProfile,
-    profile.company,
-    profile.website,
-    profile.location,
-    profile.status,
-    profile.skills,
-    profile.githubusername,
-    profile.bio,
-    profile.social
-  ]);
+  }, [loading]);
 
   const {
     company,
@@ -78,7 +67,8 @@ const EditProfile = ({
 
   const onSubmit = async e => {
     e.preventDefault();
-    createProfile(formData, history, true);
+    await createProfile(formData, history, true);
+    history.push('/dashboard');
   };
 
   return (
