@@ -6,8 +6,7 @@ import Navbar from './components/layout/Navbar';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
-import CreateProfile from './components/profile-forms/CreateProfile';
-import EditProfile from './components/profile-forms/EditProfile';
+import ProfileForm from './components/profile-forms/ProfileForm';
 import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
@@ -41,10 +40,10 @@ const App = () => {
       <Router>
         <>
           <Navbar />
-          <Route exact path='/' component={Landing} />
-          <section className='container'>
-            <Alert />
-            <Switch>
+          <Alert />
+          <Switch>
+            <Route exact path='/' component={Landing} />
+            <section className='container'>
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/profiles' component={Profiles} />
@@ -53,12 +52,12 @@ const App = () => {
               <PrivateRoute
                 exact
                 path='/create-profile'
-                component={CreateProfile}
+                component={ProfileForm}
               />
               <PrivateRoute
                 exact
                 path='/edit-profile'
-                component={EditProfile}
+                component={ProfileForm}
               />
               <PrivateRoute
                 exact
@@ -72,8 +71,8 @@ const App = () => {
               />
               <PrivateRoute exact path='/posts' component={Posts} />
               <PrivateRoute exact path='/posts/:id' component={Post} />
-            </Switch>
-          </section>
+            </section>
+          </Switch>
         </>
       </Router>
     </Provider>

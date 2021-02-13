@@ -15,17 +15,20 @@ import {
 // Load user
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
+    try {
+      setAuthToken(localStorage.token);
+      const res = await api.get('/auth');
 
-  try {
-    const res = await api.get('/api/auth');
-
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data
-    });
-  } catch (error) {
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+    } catch (error) {
+      dispatch({
+        type: AUTH_ERROR
+      });
+    }
+  } else {
     dispatch({
       type: AUTH_ERROR
     });
@@ -33,17 +36,9 @@ export const loadUser = () => async dispatch => {
 };
 
 // Register user
-export const register = ({ name, email, password }) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ name, email, password });
-
+export const register = formData => async dispatch => {
   try {
-    const res = await api.post('/api/users', body, config);
+    const res = await api.post('/users', formData);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
@@ -65,16 +60,10 @@ export const register = ({ name, email, password }) => async dispatch => {
 
 // Login user
 export const login = (email, password) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({ email, password });
+  const body = { email, password };
 
   try {
-    const res = await api.post('/api/auth', body, config);
+    const res = await api.post('/auth', body);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data
