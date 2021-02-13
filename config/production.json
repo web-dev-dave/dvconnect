@@ -1,0 +1,5 @@
+{
+  "mongoURI": "mongodb+srv://webdevdave123:webdevdave123@dvconnect.toy0y.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "secretsquirreltokem",
+  "githubToken": "5e22ca0b720c2ec37d84772b9d2cc3b2f3240680"
+}

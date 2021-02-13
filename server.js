@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const path = require('path');
 
 const server = express();
 
@@ -18,12 +19,18 @@ server.use('/api/profile', profileRoute);
 server.use('/api/posts', postsRoute);
 server.use('/api/auth', authRoute);
 
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  server.use(express.static('client/build'));
+
+  server.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 // Connect Database
 connectDB();
-
-server.get('/', (req, res) => {
-  res.send('API Running');
-});
 
 const PORT = process.env.PORT || 5000;
 
