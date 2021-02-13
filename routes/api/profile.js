@@ -4,6 +4,7 @@ const config = require('config');
 const router = express.Router();
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
+const normalize = require('normalize-url');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -62,17 +63,18 @@ router.post(
       } = req.body;
 
       // Build profile object
-      const profileFields = {};
-      profileFields.user = req.user.id;
-      if (company) profileFields.company = company;
-      if (website) profileFields.website = website;
-      if (location) profileFields.location = location;
-      if (bio) profileFields.bio = bio;
-      if (status) profileFields.status = status;
-      if (githubusername) profileFields.githubusername = githubusername;
-      if (skills) {
-        profileFields.skills = skills.split(',').map(skill => skill.trim());
-      }
+      const profileFields = {
+        user: req.user.id,
+        company,
+        location,
+        website: website === '' ? '' : normalize(website, { forceHttps: true }),
+        bio,
+        skills: Array.isArray(skills)
+          ? skills
+          : skills.split(',').map(skill => ' ' + skill.trim()),
+        status,
+        githubusername
+      };
 
       // Build social object
       profileFields.social = {};
@@ -346,15 +348,8 @@ router.get('/github/:username', (req, res) => {
       }
     };
 
-    request(options, (error, response, body) => {
-      if (error) console.error(error);
-
-      if (response.statusCode !== 200) {
-        return res.status(404).json({ msg: 'No GitHub profile found' });
-      }
-
-      res.json(JSON.parse(body));
-    });
+    const gitHubResponse = await axios.get(uri, { headers });
+    return res.json(gitHubResponse.data);
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
