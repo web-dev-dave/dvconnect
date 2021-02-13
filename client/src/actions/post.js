@@ -5,6 +5,7 @@ import {
   ADD_POST,
   DELETE_POSTS,
   GET_POSTS,
+  GET_POST,
   POST_ERROR,
   UPDATE_LIKES
 } from './types';
@@ -63,7 +64,6 @@ export const removeLike = postId => async dispatch => {
 // Delete post
 export const deletePost = postId => async dispatch => {
   try {
-    console.log(postId);
     await axios.delete(`/api/posts/${postId}`);
 
     dispatch({
@@ -73,7 +73,6 @@ export const deletePost = postId => async dispatch => {
 
     dispatch(setAlert('Post Removed', 'success'));
   } catch (error) {
-    console.log('Here');
     dispatch({
       type: POST_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status }
@@ -98,6 +97,23 @@ export const addPost = formData => async dispatch => {
     });
 
     dispatch(setAlert('Post Created', 'success'));
+  } catch (error) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// Get post by id
+export const getPost = postId => async dispatch => {
+  try {
+    const res = await axios.get(`/api/posts/${postId}`);
+
+    dispatch({
+      type: GET_POST,
+      payload: res.data
+    });
   } catch (error) {
     dispatch({
       type: POST_ERROR,

@@ -12,8 +12,6 @@ const ProfileGithub = ({ getGithubRepos, username, repos }) => {
     getGithubRepos(username);
   }, [getGithubRepos, username]);
 
-  console.log(repos[0].stargazers_count);
-
   return (
     <div className='profile-github'>
       <h2 className='text-primary my-1'>Github Repos</h2>
@@ -21,7 +19,7 @@ const ProfileGithub = ({ getGithubRepos, username, repos }) => {
         <Spinner />
       ) : (
         repos.map(repo => (
-          <div key={repo._id} className='repo bg-white p-1 my-1'>
+          <div key={repo.id} className='repo bg-white p-1 my-1'>
             <div>
               <h4>
                 <a
