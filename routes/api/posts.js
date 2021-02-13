@@ -82,7 +82,7 @@ router.delete('/:id', auth, async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     // Post doesnt exist
-    if (!posts) return res.status(404).json({ msg: 'Post not found' });
+    if (!post) return res.status(404).json({ msg: 'Post not found' });
 
     // Check user
     if (post.user.toString() !== req.user.id) {

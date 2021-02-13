@@ -1,4 +1,5 @@
 import {
+  ADD_POST,
   DELETE_POSTS,
   GET_POSTS,
   POST_ERROR,
@@ -23,7 +24,15 @@ export default function (state = initialState, action) {
         posts: payload,
         loading: false
       };
+    case ADD_POST: {
+      return {
+        ...state,
+        posts: [...state.posts, payload],
+        loading: false
+      };
+    }
     case DELETE_POSTS: {
+      // console.log('Here');
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== payload),

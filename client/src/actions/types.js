@@ -19,3 +19,4 @@ export const GET_POSTS = 'GET_POSTS';
 export const POST_ERROR = 'POST_ERROR';
 export const UPDATE_LIKES = 'UPDATE_LIKES';
 export const DELETE_POSTS = 'DELETE_POSTS';
+export const ADD_POST = 'ADD_POST';
